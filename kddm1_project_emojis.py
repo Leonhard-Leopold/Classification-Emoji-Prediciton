@@ -38,7 +38,7 @@ tokenizer.fit_on_texts(train_tweets)
 train_tweets = tokenizer.texts_to_sequences(train_tweets)
 test_tweets = tokenizer.texts_to_sequences(test_tweets)
 
-max_length = max(max(len(train_r) for train_r in train_tweets), max(len(train_r) for train_r in train_tweets))
+max_length = max(max(len(train_r) for train_r in train_tweets), max(len(train_r) for train_r in test_tweets))
 train_tweets = tf.keras.preprocessing.sequence.pad_sequences(train_tweets, maxlen=max_length)
 test_tweets = tf.keras.preprocessing.sequence.pad_sequences(test_tweets, maxlen=max_length)
 
