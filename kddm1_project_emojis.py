@@ -21,6 +21,10 @@ train_tweets = pandas.read_pickle("emoji_train.pkl")["tweet"]
 train_emojis = pandas.read_pickle("emoji_train.pkl")["emoji_class"]
 test_tweets = pandas.read_pickle("emoji_test.pkl")["tweet"]
 test_emojis = pandas.read_pickle("emoji_test.pkl")["emoji_class"]
+print(train_tweets.shape)
+print(test_tweets.shape)
+
+print(pandas.read_pickle("emoji_train.pkl").head())
 
 print("Text preprocessing ...")
 for i in range(len(train_tweets)):
@@ -34,9 +38,8 @@ tokenizer.fit_on_texts(train_tweets)
 train_tweets = tokenizer.texts_to_sequences(train_tweets)
 test_tweets = tokenizer.texts_to_sequences(test_tweets)
 
-max_length = max(len(train_r) for train_r in train_tweets)
+max_length = max(max(len(train_r) for train_r in train_tweets), max(len(train_r) for train_r in train_tweets))
 train_tweets = tf.keras.preprocessing.sequence.pad_sequences(train_tweets, maxlen=max_length)
-max_length = max(len(train_r) for train_r in test_tweets)
 test_tweets = tf.keras.preprocessing.sequence.pad_sequences(test_tweets, maxlen=max_length)
 
 print("Splitting dataset ...")
